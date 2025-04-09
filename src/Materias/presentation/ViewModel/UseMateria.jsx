@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import MateriaUseCase from "../domain/useCase/MateriaUseCase";
+import MateriaUseCase from "../../domain/useCase/MateriaUseCase";
 
 export default function useMateriaViewModel() {
   const [materias, setMaterias] = useState([]);
@@ -21,7 +21,7 @@ export default function useMateriaViewModel() {
 
   const addOrUpdateMateria = async () => {
     try {
-      const materia = { name }; // Solo enviar el nombre
+      const materia = { name }; 
       if (editId) {
         await MateriaUseCase.updateMateria(editId, materia);
         setEditId(null);

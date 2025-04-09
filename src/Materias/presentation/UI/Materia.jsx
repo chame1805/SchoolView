@@ -1,4 +1,5 @@
-import useMateriaViewModel from "../UseMateria";
+import useMateriaViewModel from "../ViewModel/UseMateria";
+import "./Materia.css";
 
 export default function Materia() {
   const {

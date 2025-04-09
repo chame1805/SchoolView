@@ -1,4 +1,4 @@
-import Alumno from "./Alumnos/presentation/Alumno";
+import Alumno from "./Alumnos/features/presentation/UI/Alumno";
 import Materia from "./Materias/presentation/UI/Materia";
 
 function App() {

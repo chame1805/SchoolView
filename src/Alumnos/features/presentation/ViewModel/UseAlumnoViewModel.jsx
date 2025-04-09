@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import alumnoUseCase from "../../domain/useCase/AlumnoUseCase";
+import AlumnoUseCase from "../../../domain/useCase/AlumnoUseCase";
+import Alumno from "../../data/models/Alumnos";
 
-export default function useAlumnoViewModel() {
+ function useAlumnoViewModel() {
   const [alumnos, setAlumnos] = useState([]);
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -13,7 +14,7 @@ export default function useAlumnoViewModel() {
 
   const fetchAlumnos = async () => {
     try {
-      const data = await alumnoUseCase.getAlumnos();
+      const data = await AlumnoUseCase.getAlumnos();
       setAlumnos(data);
     } catch (error) {
       console.error("Error al obtener alumnos:", error);
@@ -22,12 +23,16 @@ export default function useAlumnoViewModel() {
 
   const addOrUpdateAlumno = async () => {
     try {
-      const alumno = { nombre, telefono };
+      const alumno = new Alumno(nombre, telefono);
+      if (!alumno.isValid()) {
+        alert("Por favor, completa todos los campos.");
+        return;
+      }
       if (editId) {
-        await alumnoUseCase.updateAlumno(editId, alumno);
+        await AlumnoUseCase.updateAlumno(editId, alumno);
         setEditId(null);
       } else {
-        await alumnoUseCase.createAlumno(alumno);
+        await AlumnoUseCase.createAlumno(alumno);
       }
       resetForm();
       fetchAlumnos();
@@ -44,7 +49,7 @@ export default function useAlumnoViewModel() {
 
   const deleteAlumno = async (id) => {
     try {
-      await alumnoUseCase.deleteAlumno(id);
+      await AlumnoUseCase.deleteAlumno(id);
       fetchAlumnos();
     } catch (error) {
       console.error("Error al eliminar alumno:", error);
@@ -68,3 +73,4 @@ export default function useAlumnoViewModel() {
     deleteAlumno,
   };
 }
+export default useAlumnoViewModel;

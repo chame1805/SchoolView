@@ -1,0 +1,90 @@
+.materia-container {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .materia-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .materia-form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  
+  .materia-form input:focus {
+    border-color: #5c9ded;
+  }
+  
+  .materia-form button {
+    padding: 10px;
+    font-size: 16px;
+    background-color: #030b15;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .materia-form button:hover {
+    background-color: #4786c7;
+  }
+  
+  .materia-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .materia-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .materia-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .edit, .delete {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #080a03;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .edit:hover {
+    background-color: #d1e7ff;
+  }
+  
+  .delete:hover {
+    background-color: #f1d7d7;
+  }
+  
