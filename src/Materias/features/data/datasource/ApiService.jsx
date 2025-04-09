@@ -13,29 +13,33 @@ const apiService = {
       throw error;
     }
   },
-  post: async (endpoint, data) => {
+  post: async (endpoint, payload) => {
     try {
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: data.name }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Error en POST ${endpoint}: ${res.status} - ${res.statusText}`);
-      console.log(`POST ${endpoint} ->`, await res.json());
+      const data = await res.json();
+      console.log(`POST ${endpoint} ->`, data);
+      return data;
     } catch (error) {
       console.error(error);
       throw error;
     }
   },
-  put: async (endpoint, data) => {
+  put: async (endpoint, payload) => {
     try {
       const res = await fetch(`${API_URL}${endpoint}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: data.name }),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error(`Error en PUT ${endpoint}: ${res.status} - ${res.statusText}`);
-      console.log(`PUT ${endpoint} ->`, await res.json());
+      const data = await res.json();
+      console.log(`PUT ${endpoint} ->`, data);
+      return data;
     } catch (error) {
       console.error(error);
       throw error;

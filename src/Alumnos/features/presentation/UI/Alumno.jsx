@@ -1,8 +1,19 @@
-import useAlumnoViewModel from "../viewModel/useAlumnoViewModel";
+
+import UseAlumnoViewModel from "../ViewModel/UseAlumnoViewModel";
 import "./Alumno.css";
 
 export default function Alumno() {
-  const { alumnos, nombre, telefono,editId,setNombre, setTelefono, addOrUpdateAlumno, editAlumno,deleteAlumno,  } = useAlumnoViewModel();
+  const {
+    alumnos,
+    nombre,
+    telefono,
+    editId,
+    setNombre,
+    setTelefono,
+    addOrUpdateAlumno,
+    editAlumno,
+    deleteAlumno,
+  } = UseAlumnoViewModel();
 
   return (
     <div className="crud-container">
@@ -31,27 +42,26 @@ export default function Alumno() {
             required
             className="crud-input"
           />
-          <button
-            type="submit"
-            className="crud-button submit"
-          >
+          <button type="submit" className="crud-button submit">
             {editId ? "Actualizar" : "Agregar"}
           </button>
         </form>
         <ul className="crud-list">
-          {alumnos.map((alumno) => (
-            <li key={alumno.id} className="crud-list-item">
-              <span>{alumno.nombre} - {alumno.telefono}</span>
+          {alumnos.map((a) => (
+            <li key={a.id} className="crud-list-item">
+              <span>
+                {a.nombre} - {a.telefono}
+              </span>
               <div className="crud-actions">
-                <button 
+                <button
                   className="crud-button edit"
-                  onClick={() => editAlumno(alumno)}
+                  onClick={() => editAlumno(a)}
                 >
                   Editar
                 </button>
-                <button 
+                <button
                   className="crud-button delete"
-                  onClick={() => deleteAlumno(alumno.id)}
+                  onClick={() => deleteAlumno(a.id)}
                 >
                   Eliminar
                 </button>

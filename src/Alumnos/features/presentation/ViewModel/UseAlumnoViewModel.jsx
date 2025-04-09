@@ -1,40 +1,36 @@
 import { useState, useEffect } from "react";
-import AlumnoUseCase from "../../../domain/useCase/AlumnoUseCase";
-import Alumno from "../../data/models/Alumnos";
+import getAlumnos from "../../../domain/useCase/GetAlumnoUsecase";
+import createAlumno from "../../../domain/useCase/CreateAlumnoUsecase";
+import updateAlumno from "../../../domain/useCase/UpdateAlumnoUsecase";
+import deleteAlumnoUseCase from "../../../domain/useCase/DeleteAlumnoUsecase"; // renombrado para evitar conflicto
 
- function useAlumnoViewModel() {
+export default function UseAlumnoViewModel() {
   const [alumnos, setAlumnos] = useState([]);
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
   const [editId, setEditId] = useState(null);
 
+  // ✅ Definición de fetchAlumnos
+  const fetchAlumnos = async () => {
+    const data = await getAlumnos();
+    setAlumnos(data);
+  };
+
   useEffect(() => {
     fetchAlumnos();
   }, []);
 
-  const fetchAlumnos = async () => {
-    try {
-      const data = await AlumnoUseCase.getAlumnos();
-      setAlumnos(data);
-    } catch (error) {
-      console.error("Error al obtener alumnos:", error);
-    }
-  };
-
   const addOrUpdateAlumno = async () => {
     try {
-      const alumno = new Alumno(nombre, telefono);
-      if (!alumno.isValid()) {
-        alert("Por favor, completa todos los campos.");
-        return;
-      }
       if (editId) {
-        await AlumnoUseCase.updateAlumno(editId, alumno);
-        setEditId(null);
+        await updateAlumno(editId, { nombre, telefono });
       } else {
-        await AlumnoUseCase.createAlumno(alumno);
+        await createAlumno({ nombre, telefono });
       }
-      resetForm();
+
+      setNombre("");
+      setTelefono("");
+      setEditId(null);
       fetchAlumnos();
     } catch (error) {
       console.error("Error al guardar alumno:", error);
@@ -48,17 +44,8 @@ import Alumno from "../../data/models/Alumnos";
   };
 
   const deleteAlumno = async (id) => {
-    try {
-      await AlumnoUseCase.deleteAlumno(id);
-      fetchAlumnos();
-    } catch (error) {
-      console.error("Error al eliminar alumno:", error);
-    }
-  };
-
-  const resetForm = () => {
-    setNombre("");
-    setTelefono("");
+    await deleteAlumnoUseCase(id);
+    fetchAlumnos();
   };
 
   return {
@@ -73,4 +60,3 @@ import Alumno from "../../data/models/Alumnos";
     deleteAlumno,
   };
 }
-export default useAlumnoViewModel;

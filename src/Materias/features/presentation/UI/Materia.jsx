@@ -14,7 +14,7 @@ export default function Materia() {
 
   return (
     <div className="materia-container">
-      <h1>Materia</h1>
+      <h1>Materias</h1>
       <form
         className="materia-form"
         onSubmit={(e) => {
@@ -32,11 +32,11 @@ export default function Materia() {
         <button type="submit">{editId ? "Actualizar" : "Agregar"}</button>
       </form>
       <ul className="materia-list">
-        {materias.map((materia) => (
-          <li key={materia.id}>
-            {materia.name}
-            <button className="edit" onClick={() => editMateria(materia)}>Editar</button>
-            <button className="delete" onClick={() => deleteMateria(materia.id)}>Eliminar</button>
+        {materias.map((m) => (
+          <li key={m.id}>
+            {m.name}
+            <button className="edit"   onClick={() => editMateria(m)}>Editar</button>
+            <button className="delete" onClick={() => deleteMateria(m.id)}>Eliminar</button>
           </li>
         ))}
       </ul>

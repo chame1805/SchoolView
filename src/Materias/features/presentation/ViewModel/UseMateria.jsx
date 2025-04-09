@@ -1,20 +1,22 @@
 import { useState, useEffect } from "react";
-import MateriaUseCase from "../../../domain/useCase/MateriaUseCase";
+import createMateria from "../../../domain/useCase/CreateMateriaUsecase";
+import deleteMateria from "../../../domain/useCase/DeleteMateriaUsecase";
+import updateMateria from "../../../domain/useCase/UpdateMateriaUsecase";
 import ModelsMateria from "../../data/models/ModelsMateria";
-
+import getMaterias from "../../../domain/useCase/GetMateriaUseCase";
 
 export default function useMateriaViewModel() {
   const [materias, setMaterias] = useState([]);
-  const [name, setName] = useState(""); // Solo un campo name
-  const [editId, setEditId] = useState(null);
+  const [name, setName]         = useState(""); 
+  const [editId, setEditId]     = useState(null);
 
   useEffect(() => {
-    fetchMaterias();
+    loadMaterias();
   }, []);
 
-  const fetchMaterias = async () => {
+  const loadMaterias = async () => {
     try {
-      const data = await MateriaUseCase.getMaterias(); // Usar getMaterias
+      const data = await getMaterias();
       setMaterias(data);
     } catch (error) {
       console.error("Error al obtener materias:", error);
@@ -23,37 +25,32 @@ export default function useMateriaViewModel() {
 
   const addOrUpdateMateria = async () => {
     try {
-      const materia = new ModelsMateria(name); // Crear una nueva instancia de ModelsMateria
-      // Solo asignar el nombre, no es necesario asignar id aquí  
+      const materiaObj = new ModelsMateria(name);
       if (editId) {
-        await MateriaUseCase.updateMateria(editId, materia);
+        await updateMateria(editId, materiaObj);
         setEditId(null);
       } else {
-        await MateriaUseCase.createMateria(materia);
+        await createMateria(materiaObj);
       }
-      resetForm();
-      fetchMaterias();
+      setName("");
+      await loadMaterias();
     } catch (error) {
       console.error("Error al guardar materia:", error);
     }
   };
 
-  const editMateria = (materia) => {
-    setName(materia.name); // Solo editar el nombre
-    setEditId(materia.id);
+  const editMateria = (m) => {
+    setName(m.name);
+    setEditId(m.id);
   };
 
-  const deleteMateria = async (id) => {
+  const deleteMateriaById = async (id) => {
     try {
-      await MateriaUseCase.deleteMateria(id); // Usar deleteMateria
-      fetchMaterias();
+      await deleteMateria(id);
+      await loadMaterias();
     } catch (error) {
       console.error("Error al eliminar materia:", error);
     }
-  };
-
-  const resetForm = () => {
-    setName(""); // Resetear solo el campo name
   };
 
   return {
@@ -63,6 +60,6 @@ export default function useMateriaViewModel() {
     setName,
     addOrUpdateMateria,
     editMateria,
-    deleteMateria,
+    deleteMateria: deleteMateriaById,
   };
 }
