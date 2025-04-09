@@ -1,6 +1,5 @@
 import useMateriaViewModel from "../ViewModel/UseMateria";
 import "./Materia.css";
-
 export default function Materia() {
   const {
     materias,
@@ -35,7 +34,7 @@ export default function Materia() {
         {materias.map((m) => (
           <li key={m.id}>
             {m.name}
-            <button className="edit"   onClick={() => editMateria(m)}>Editar</button>
+            <button className="edit" onClick={() => editMateria(m)}>Editar</button>
             <button className="delete" onClick={() => deleteMateria(m.id)}>Eliminar</button>
           </li>
         ))}

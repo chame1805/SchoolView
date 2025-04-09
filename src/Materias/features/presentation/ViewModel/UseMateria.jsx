@@ -7,8 +7,8 @@ import getMaterias from "../../../domain/useCase/GetMateriaUseCase";
 
 export default function useMateriaViewModel() {
   const [materias, setMaterias] = useState([]);
-  const [name, setName]         = useState(""); 
-  const [editId, setEditId]     = useState(null);
+  const [name, setName] = useState(""); 
+  const [editId, setEditId] = useState(null);
 
   useEffect(() => {
     loadMaterias();

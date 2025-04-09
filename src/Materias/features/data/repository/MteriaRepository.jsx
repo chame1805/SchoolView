@@ -1,13 +1,15 @@
 // src/features/data/repository/MateriaRepository.js
+
 import apiService from "../datasource/ApiService";
 
-const BASE = "/materias";
+// Cambié la ruta para coincidir con la del backend.
+const BASE = "/crearmaterias"; 
 
 const MateriaRepository = {
-  getMaterias:   () => apiService.get(BASE),
-  createMateria: (m) => apiService.post(BASE, m),
-  updateMateria: (id, m) => apiService.put(`${BASE}/${id}`, m),
-  deleteMateria: (id) => apiService.delete(`${BASE}/${id}`),
+  getMaterias:   () => apiService.get("/materias"),  // No cambies esta ruta, ya está bien
+  createMateria: (m) => apiService.post(BASE, m),  // Aquí usamos /crearmaterias
+  updateMateria: (id, m) => apiService.put(`/materias/${id}`, m),  // Rutas correctas
+  deleteMateria: (id) => apiService.delete(`/materias/${id}`),  // Rutas correctas
 };
 
-export default MateriaRepository
+export default MateriaRepository;
