@@ -1,5 +1,5 @@
 import Alumno from "./Alumnos/features/presentation/UI/Alumno";
-import Materia from "./Materias/presentation/UI/Materia";
+import Materia from "./Materias/features/presentation/UI/Materia";
 
 function App() {
   

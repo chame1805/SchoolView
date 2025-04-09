@@ -1,4 +1,4 @@
-import MteriaRepository from "../../data/repository/MteriaRepository";
+import MteriaRepository from "../../features/data/repository/MteriaRepository";
 
 const getMaterias = async () => {
   return await MteriaRepository.getMaterias();

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import MateriaUseCase from "../../domain/useCase/MateriaUseCase";
+import MateriaUseCase from "../../../domain/useCase/MateriaUseCase";
+import ModelsMateria from "../../data/models/ModelsMateria";
+
 
 export default function useMateriaViewModel() {
   const [materias, setMaterias] = useState([]);
@@ -21,7 +23,8 @@ export default function useMateriaViewModel() {
 
   const addOrUpdateMateria = async () => {
     try {
-      const materia = { name }; 
+      const materia = new ModelsMateria(name); // Crear una nueva instancia de ModelsMateria
+      // Solo asignar el nombre, no es necesario asignar id aquí  
       if (editId) {
         await MateriaUseCase.updateMateria(editId, materia);
         setEditId(null);
